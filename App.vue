@@ -7,6 +7,11 @@ import navClose from '@/assets/images/icon-close.svg?component'
 import imgInteractiveMB from '@/assets/images/mobile/image-interactive.jpg'
 import imgInteractiveDT from '@/assets/images/desktop/image-interactive.jpg'
 
+import iconFacebook from '@/assets/images/icon-facebook.svg?url'
+import iconTwitter from '@/assets/images/icon-twitter.svg?url'
+import iconPinterest from '@/assets/images/icon-pinterest.svg?url'
+import iconInstagram from '@/assets/images/icon-instagram.svg?url'
+
 export default {
   data() {
     return {
@@ -72,6 +77,50 @@ export default {
       ],
       imgInteractiveMB,
       imgInteractiveDT,
+      footerData: [
+        {
+          text: 'About',
+          isHovered: false
+        },
+        {
+          text: 'Careers',
+          isHovered: false
+        },
+        {
+          text: 'Events',
+          isHovered: false
+        },
+        {
+          text: 'Products',
+          isHovered: false
+        },
+        {
+          text: 'Support',
+          isHovered: false
+        },
+      ],
+      networkData: [
+        {
+          icon: iconFacebook,
+          hSize: 'h-6',
+          isHovered: false
+        },
+        {
+          icon: iconTwitter,
+          hSize: 'h-5',
+          isHovered: false
+        },
+        {
+          icon: iconPinterest,
+          hSize: 'h-6',
+          isHovered: false
+        },
+        {
+          icon: iconInstagram,
+          hSize: 'h-6',
+          isHovered: false
+        },
+      ]
     }
   },
   components: {
@@ -91,7 +140,7 @@ export default {
         textColor = 'text-neo-white'
       }
       return { bgOpacity, textColor }
-    }
+    },
   }
 }
 </script>
@@ -146,8 +195,43 @@ export default {
         <MainBtn b-text="See all" />
       </section>
     </main>
-    <footer class=" w-full max-w-[425px]">
-
+    <footer class=" flex flex-col gap-12 items-center w-full max-w-[425px] py-14 bg-neo-black">
+      <div class=" flex flex-col items-center gap-8">
+        <img class=" h-6" :src="logo" alt="logo">
+        <div class=" flex flex-col gap-4 text-neo-white text-[15px] leading-[25px] font-alata">
+          <div v-for="item in footerData" @mouseenter="item.isHovered = true" @mouseleave="item.isHovered = false"
+            class=" relative flex flex-col items-center">
+            <a href="#" target="_blank">{{ item.text }}</a>
+            <Transition name="line-fade">
+              <div v-show="item.isHovered" class=" absolute bottom-[-8px] w-6 h-[2px] bg-neo-white"></div>
+            </Transition>
+          </div>
+        </div>
+      </div>
+      <div class=" flex flex-col items-center gap-4">
+        <div class=" flex items-center gap-4">
+          <div v-for="(item, index) in networkData" @mouseenter="item.isHovered = true"
+            @mouseleave="item.isHovered = false" class=" relative cursor-pointer">
+            <img :class="` ${item.hSize}`" :src="item.icon" :alt="` image ${index + 1}`">
+            <Transition name="line-fade">
+              <div v-show="item.isHovered" class=" absolute bottom-[-8px] w-full h-[2px] bg-neo-white"></div>
+            </Transition>
+          </div>
+        </div>
+        <h5 class=" text-neo-white text-opacity-50">
+          © 2021 Loopstudios. All rights reserved.</h5>
+      </div>
     </footer>
   </body>
 </template>
+<style>
+.line-fade-enter-active,
+.line-fade-leave-active {
+  transition: opacity .33s ease;
+}
+
+.line-fade-enter-from,
+.line-fade-leave-to {
+  opacity: 0;
+}
+</style>
