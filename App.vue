@@ -46,49 +46,49 @@ export default {
         {
           textArr: ['Deep', 'earth'],
           bgMB: 'bg-[url(@/assets/images/mobile/image-deep-earth.jpg)]',
-          bgDT: 'DT:bg-[url(@/assets/images/mobile/image-deep-earth.jpg)]',
+          bgDT: 'DT:bg-[url(@/assets/images/desktop/image-deep-earth.jpg)]',
           isHovered: false
         },
         {
           textArr: ['Night', 'arcade'],
           bgMB: 'bg-[url(@/assets/images/mobile/image-night-arcade.jpg)]',
-          bgDT: 'DT:bg-[url(@/assets/images/mobile/image-night-arcade.jpg)]',
+          bgDT: 'DT:bg-[url(@/assets/images/desktop/image-night-arcade.jpg)]',
           isHovered: false
         },
         {
           textArr: ['Soccer', 'team VR'],
           bgMB: 'bg-[url(@/assets/images/mobile/image-soccer-team.jpg)]',
-          bgDT: 'DT:bg-[url(@/assets/images/mobile/image-soccer-team.jpg)]',
+          bgDT: 'DT:bg-[url(@/assets/images/desktop/image-soccer-team.jpg)]',
           isHovered: false
         },
         {
           textArr: ['The', 'grid'],
           bgMB: 'bg-[url(@/assets/images/mobile/image-grid.jpg)]',
-          bgDT: 'DT:bg-[url(@/assets/images/mobile/image-grid.jpg)]',
+          bgDT: 'DT:bg-[url(@/assets/images/desktop/image-grid.jpg)]',
           isHovered: false
         },
         {
           textArr: ['From up', 'above VR'],
           bgMB: 'bg-[url(@/assets/images/mobile/image-from-above.jpg)]',
-          bgDT: 'DT:bg-[url(@/assets/images/mobile/image-from-above.jpg)]',
+          bgDT: 'DT:bg-[url(@/assets/images/desktop/image-from-above.jpg)]',
           isHovered: false
         },
         {
           textArr: ['Pocket', 'borealis'],
           bgMB: 'bg-[url(@/assets/images/mobile/image-pocket-borealis.jpg)]',
-          bgDT: 'DT:bg-[url(@/assets/images/mobile/image-pocket-borealis.jpg)]',
+          bgDT: 'DT:bg-[url(@/assets/images/desktop/image-pocket-borealis.jpg)]',
           isHovered: false
         },
         {
           textArr: ['The', 'curiosity'],
           bgMB: 'bg-[url(@/assets/images/mobile/image-curiosity.jpg)]',
-          bgDT: 'DT:bg-[url(@/assets/images/mobile/image-curiosity.jpg)]',
+          bgDT: 'DT:bg-[url(@/assets/images/desktop/image-curiosity.jpg)]',
           isHovered: false
         },
         {
           textArr: ['Make it', 'fisheye'],
           bgMB: 'bg-[url(@/assets/images/mobile/image-fisheye.jpg)]',
-          bgDT: 'DT:bg-[url(@/assets/images/mobile/image-fisheye.jpg)]',
+          bgDT: 'DT:bg-[url(@/assets/images/desktop/image-fisheye.jpg)]',
           isHovered: false
         }
       ],
@@ -183,7 +183,7 @@ export default {
           </button>
         </div>
         <!-- Nav Desktop -->
-        <div class=" relative hidden DT:flex gap-8 z-30">
+        <div class=" relative hidden DT:flex gap-8 select-none z-30">
           <div v-for="item in navData" @mouseenter="item.isHovered = true" @mouseleave="item.isHovered = false"
             class=" relative flex flex-col items-center">
             <button class=" text-neo-white text-[15px] leading-[25px] font-alata capitalize">
@@ -199,11 +199,15 @@ export default {
           Immersive experiences that deliver</h1>
       </div>
     </header>
-    <main class=" flex flex-col gap-24 w-full max-w-[425px] my-24">
-      <section class=" flex flex-col gap-12 px-6">
-        <img class=" select-none" :src="imgInteractiveMB" alt="imgInteractiveMB" draggable="false">
-        <div class=" flex flex-col gap-4 px-6 text-center">
-          <h2 class=" text-[32px] leading-[32px] font-light uppercase">
+    <main
+      class=" flex flex-col gap-24 DT:gap-[184px] w-full max-w-[425px] DT:max-w-[1920px] my-24 DT:mt-40 DT:mb-[184px]">
+      <section class=" relative flex flex-col gap-12 mx-6 DT:mx-[165px]">
+        <img class=" DT:hidden select-none" :src="imgInteractiveMB" alt="imgInteractiveMB" draggable="false">
+        <img class=" hidden DT:block w-[66%] select-none" :src="imgInteractiveDT" alt="imgInteractiveDT"
+          draggable="false">
+        <div
+          class=" DT:absolute DT:right-0 DT:bottom-[-2px] flex flex-col gap-4 DT:w-[48.75%] px-6 DT:pt-24 DT:pl-24 DT:pr-0 DT:bg-neo-white text-center DT:text-left">
+          <h2 class=" text-[32px] DT:text-[48px] leading-[32px] DT:leading-[48px] font-light uppercase">
             The leader in interactive VR</h2>
           <p class=" text-neo-black text-opacity-50 text-[15px] leading-[25px] font-alata">
             Founded in 2011, Loopstudios has been producing world-class virtual reality
@@ -213,25 +217,30 @@ export default {
           </p>
         </div>
       </section>
-      <section class=" flex flex-col px-6">
-        <h2 class=" mb-12 text-center text-[32px] leading-[32px] font-light uppercase">Our creations</h2>
-        <div class=" flex flex-col gap-6 mb-9">
+      <section class=" flex flex-col px-6 DT:px-[165px]">
+        <div class=" flex justify-center DT:justify-between mb-12 DT:mb-20">
+          <h2 class=" text-[32px] DT:text-[48px] leading-[32px] DT:leading-[48px] font-light uppercase">
+            Our creations</h2>
+          <MainBtn class=" hidden DT:block" b-text="See all" />
+        </div>
+        <div class=" grid grid-cols-1 DT:grid-cols-4 gap-6 DT:gap-[30px]">
           <article v-for="item in articleData" @mouseenter="item.isHovered = true" @mouseleave="item.isHovered = false"
-            :class="` relative flex flex-col justify-end w-full h-[120px] p-5 ${item.bgMB} bg-cover bg-center cursor-pointer`">
+            :class="` relative flex flex-col justify-end w-full h-[120px] DT:h-[450px] p-5 ${item.bgMB} ${item.bgDT} bg-cover bg-top cursor-pointer`">
             <div :class="` absolute top-0 left-0 w-full h-full bg-white ${setState(item.isHovered).bgOpacity}`">
             </div>
             <h4 v-for="subItem in item.textArr"
-              :class="` ${setState(item.isHovered).textColor} text-[24px] leading-[24px] font-light uppercase select-none`">
+              :class="` ${setState(item.isHovered).textColor} text-[24px] DT:text-[32px] leading-[24px] DT:leading-[32px] font-light uppercase select-none`">
               {{ subItem }}</h4>
           </article>
         </div>
-        <MainBtn b-text="See all" />
+        <MainBtn class=" DT:hidden mt-9" b-text="See all" />
       </section>
     </main>
-    <footer class=" flex flex-col gap-12 items-center w-full max-w-[425px] py-14 bg-neo-black">
-      <div class=" flex flex-col items-center gap-8">
+    <footer
+      class=" flex flex-col DT:flex-row gap-12 DT:justify-between items-center w-full max-w-[425px] DT:max-w-[1920px] DT:px-[165px] py-14 DT:pt-11 DT:pb-8 bg-neo-black">
+      <div class=" flex flex-col items-center DT:items-start gap-8 DT:gap-[14px] select-none">
         <img class=" h-6" :src="logo" alt="logo">
-        <div class=" flex flex-col gap-4 text-neo-white text-[15px] leading-[25px] font-alata">
+        <div class=" flex flex-col DT:flex-row gap-4 text-neo-white text-[15px] leading-[25px] font-alata">
           <div v-for="item in footerData" @mouseenter="item.isHovered = true" @mouseleave="item.isHovered = false"
             class=" relative flex flex-col items-center">
             <a href="#" target="_blank">{{ item.text }}</a>
@@ -239,8 +248,8 @@ export default {
           </div>
         </div>
       </div>
-      <div class=" flex flex-col items-center gap-4">
-        <div class=" flex items-center gap-4">
+      <div class=" flex flex-col items-center DT:items-end gap-4 DT:gap-[14px]">
+        <div class=" flex items-center gap-4 select-none">
           <div v-for="(item, index) in networkData" @mouseenter="item.isHovered = true"
             @mouseleave="item.isHovered = false" class=" relative cursor-pointer">
             <img :class="` ${item.hSize}`" :src="item.icon" :alt="` image ${index + 1}`">
