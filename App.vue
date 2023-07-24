@@ -150,14 +150,17 @@ export default {
     setState(state) {
       let bgOpacity
       let textColor
+      let gradient
       if (state) {
         bgOpacity = 'bg-opacity-25'
         textColor = 'text-neo-black'
+        gradient = ''
       } else {
         bgOpacity = 'bg-opacity-0'
         textColor = 'text-neo-white'
+        gradient = 'bg-gradient-to-r DT:bg-gradient-to-t'
       }
-      return { bgOpacity, textColor }
+      return { bgOpacity, textColor, gradient }
     },
   }
 }
@@ -202,9 +205,10 @@ export default {
     <main
       class=" flex flex-col gap-24 DT:gap-[184px] w-full max-w-[425px] DT:max-w-[1920px] my-24 DT:mt-40 DT:mb-[184px]">
       <section class=" relative flex flex-col gap-12 mx-6 DT:mx-[165px]">
-        <img class=" DT:hidden select-none" :src="imgInteractiveMB" alt="imgInteractiveMB" draggable="false">
-        <img class=" hidden DT:block w-[66%] select-none" :src="imgInteractiveDT" alt="imgInteractiveDT"
+        <img class=" DT:hidden contrast-[1.05] saturate-[1.15] select-none" :src="imgInteractiveMB" alt="imgInteractiveMB"
           draggable="false">
+        <img class=" hidden DT:block w-[66%] contrast-[1.05] saturate-[1.15] select-none" :src="imgInteractiveDT"
+          alt="imgInteractiveDT" draggable="false">
         <div
           class=" DT:absolute DT:right-0 DT:bottom-[-2px] flex flex-col gap-4 DT:w-[48.75%] px-6 DT:pt-24 DT:pl-24 DT:pr-0 DT:bg-neo-white text-center DT:text-left">
           <h2 class=" text-[32px] DT:text-[48px] leading-[32px] DT:leading-[48px] font-light uppercase">
@@ -225,11 +229,16 @@ export default {
         </div>
         <div class=" grid grid-cols-1 DT:grid-cols-4 gap-6 DT:gap-[30px]">
           <article v-for="item in articleData" @mouseenter="item.isHovered = true" @mouseleave="item.isHovered = false"
-            :class="` relative flex flex-col justify-end w-full h-[120px] DT:h-[450px] p-5 ${item.bgMB} ${item.bgDT} bg-cover bg-top cursor-pointer`">
+            :class="` relative flex flex-col justify-end w-full h-[120px] DT:h-[450px] p-5 DT:p-10 ${item.bgMB} ${item.bgDT} bg-cover bg-top cursor-pointer`">
+            <!-- Hover Layer -->
             <div :class="` absolute top-0 left-0 w-full h-full bg-white ${setState(item.isHovered).bgOpacity}`">
             </div>
+            <!-- Gradient Layer -->
+            <div
+              :class="` absolute bottom-0 left-0 w-full h-[60%] ${setState(item.isHovered).gradient} from-neo-gradient-a to-neo-gradient-b`">
+            </div>
             <h4 v-for="subItem in item.textArr"
-              :class="` ${setState(item.isHovered).textColor} text-[24px] DT:text-[32px] leading-[24px] DT:leading-[32px] font-light uppercase select-none`">
+              :class="` relative ${setState(item.isHovered).textColor} text-[24px] DT:text-[32px] leading-[24px] DT:leading-[32px] font-light uppercase select-none z-10`">
               {{ subItem }}</h4>
           </article>
         </div>
@@ -237,8 +246,8 @@ export default {
       </section>
     </main>
     <footer
-      class=" flex flex-col DT:flex-row gap-12 DT:justify-between items-center w-full max-w-[425px] DT:max-w-[1920px] DT:px-[165px] py-14 DT:pt-11 DT:pb-8 bg-neo-black">
-      <div class=" flex flex-col items-center DT:items-start gap-8 DT:gap-[14px] select-none">
+      class=" flex flex-col DT:flex-row gap-12 DT:justify-between items-center w-full max-w-[425px] DT:max-w-[1920px] DT:px-[165px] py-14 DT:pt-11 DT:pb-9 bg-neo-black">
+      <div class=" flex flex-col items-center DT:items-start gap-8 DT:gap-6 select-none">
         <img class=" h-6" :src="logo" alt="logo">
         <div class=" flex flex-col DT:flex-row gap-4 text-neo-white text-[15px] leading-[25px] font-alata">
           <div v-for="item in footerData" @mouseenter="item.isHovered = true" @mouseleave="item.isHovered = false"
@@ -248,7 +257,7 @@ export default {
           </div>
         </div>
       </div>
-      <div class=" flex flex-col items-center DT:items-end gap-4 DT:gap-[14px]">
+      <div class=" flex flex-col items-center DT:items-end gap-4 DT:gap-7">
         <div class=" flex items-center gap-4 select-none">
           <div v-for="(item, index) in networkData" @mouseenter="item.isHovered = true"
             @mouseleave="item.isHovered = false" class=" relative cursor-pointer">
