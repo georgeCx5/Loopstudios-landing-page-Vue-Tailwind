@@ -1,5 +1,6 @@
 <script>
 import MainBtn from './components/MainBtn.vue'
+import HoverLine from './components/HoverLine.vue'
 
 import logo from '@/assets/images/logo.svg?url'
 import navHamburger from '@/assets/images/icon-hamburger.svg?component'
@@ -17,13 +18,29 @@ export default {
     return {
       logo,
       imgHeroMB: 'bg-[url(@/assets/images/mobile/image-hero.jpg)]',
+      imgHeroDT: 'DT:bg-[url(@/assets/images/desktop/image-hero.jpg)]',
       isNavOpen: false,
       navData: [
-        'about',
-        'careers',
-        'events',
-        'products',
-        'support'
+        {
+          text: 'about',
+          isHovered: false,
+        },
+        {
+          text: 'careers',
+          isHovered: false,
+        },
+        {
+          text: 'events',
+          isHovered: false,
+        },
+        {
+          text: 'products',
+          isHovered: false,
+        },
+        {
+          text: 'support',
+          isHovered: false,
+        },
       ],
       articleData: [
         {
@@ -126,7 +143,8 @@ export default {
   components: {
     navHamburger,
     navClose,
-    MainBtn
+    MainBtn,
+    HoverLine
   },
   methods: {
     setState(state) {
@@ -146,23 +164,38 @@ export default {
 </script>
 <template>
   <body class=" flex flex-col items-center text-neo-black font-josefin">
-    <header :class="` relative flex flex-col w-full max-w-[425px] h-[650px] ${imgHeroMB} bg-cover bg-center px-6 pt-10`">
+    <header
+      :class="` relative flex flex-col w-full max-w-[425px] DT:max-w-[1920px] h-[650px] ${imgHeroMB} ${imgHeroDT} bg-cover bg-center DT:bg-top px-6 DT:px-[165px] pt-10 DT:pt-16`">
+      <!-- Dark Layer -->
+      <div class=" absolute left-0 top-0 w-full h-full bg-neo-black bg-opacity-40 pointer-events-none z-0"></div>
       <nav class=" flex justify-between items-center">
-        <img class=" relative h-6 select-none z-20" :src="logo" alt="logo" draggable="false">
-        <button @click="isNavOpen = !isNavOpen" class=" relative DT:hidden z-20">
+        <img class=" relative h-6 DT:h-8 select-none z-30" :src="logo" alt="logo" draggable="false">
+        <button @click="isNavOpen = !isNavOpen" class=" relative DT:hidden z-30">
           <navHamburger v-show="!isNavOpen" />
           <navClose v-show="isNavOpen" />
         </button>
+        <!-- Nav Mobile -->
         <div v-show="isNavOpen"
-          class=" absolute left-0 top-0 flex DT:hidden flex-col justify-center items-start gap-6 w-full h-[667px] px-6 bg-neo-black select-none z-10">
+          class=" absolute left-0 top-0 flex DT:hidden flex-col justify-center items-start gap-6 w-full h-[667px] px-6 bg-neo-black select-none z-20">
           <button v-for="item in navData"
             class=" text-neo-white hover:text-neo-dark-gray text-[24px] leading-[25px] font-light uppercase">
-            {{ item }}
+            {{ item.text }}
           </button>
         </div>
+        <!-- Nav Desktop -->
+        <div class=" relative hidden DT:flex gap-8 z-30">
+          <div v-for="item in navData" @mouseenter="item.isHovered = true" @mouseleave="item.isHovered = false"
+            class=" relative flex flex-col items-center">
+            <button class=" text-neo-white text-[15px] leading-[25px] font-alata capitalize">
+              {{ item.text }}
+            </button>
+            <HoverLine :conditional-val="item.isHovered" />
+          </div>
+        </div>
       </nav>
-      <div class=" absolute top-0 left-0 flex items-center w-full h-full px-6">
-        <h1 class=" p-6 text-neo-white text-[40px] leading-[38px] font-light uppercase border-neo-white border-2">
+      <div class=" absolute top-0 left-0 flex items-center w-full h-full px-6 DT:pt-24 DT:px-[165px] z-10">
+        <h1
+          class=" DT:w-[58%] p-6 DT:p-10 text-neo-white text-[40px] DT:text-[72px] leading-[38px] DT:leading-[70px] font-light uppercase border-neo-white border-2">
           Immersive experiences that deliver</h1>
       </div>
     </header>
@@ -202,9 +235,7 @@ export default {
           <div v-for="item in footerData" @mouseenter="item.isHovered = true" @mouseleave="item.isHovered = false"
             class=" relative flex flex-col items-center">
             <a href="#" target="_blank">{{ item.text }}</a>
-            <Transition name="line-fade">
-              <div v-show="item.isHovered" class=" absolute bottom-[-8px] w-6 h-[2px] bg-neo-white"></div>
-            </Transition>
+            <HoverLine :conditional-val="item.isHovered" />
           </div>
         </div>
       </div>
@@ -213,9 +244,7 @@ export default {
           <div v-for="(item, index) in networkData" @mouseenter="item.isHovered = true"
             @mouseleave="item.isHovered = false" class=" relative cursor-pointer">
             <img :class="` ${item.hSize}`" :src="item.icon" :alt="` image ${index + 1}`">
-            <Transition name="line-fade">
-              <div v-show="item.isHovered" class=" absolute bottom-[-8px] w-full h-[2px] bg-neo-white"></div>
-            </Transition>
+            <HoverLine :conditional-val="item.isHovered" />
           </div>
         </div>
         <h5 class=" text-neo-white text-opacity-50">
@@ -224,14 +253,3 @@ export default {
     </footer>
   </body>
 </template>
-<style>
-.line-fade-enter-active,
-.line-fade-leave-active {
-  transition: opacity .33s ease;
-}
-
-.line-fade-enter-from,
-.line-fade-leave-to {
-  opacity: 0;
-}
-</style>
